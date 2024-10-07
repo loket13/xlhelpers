@@ -1,0 +1,180 @@
+* {
+    box-sizing: border-box;
+    font-family: "Space Mono", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: inherit;
+    color: inherit;
+
+}
+:root {
+    --bg: #FAFAFA;
+    --bs: #FFFFFF;
+    --cl: #161616;
+    --cs: #373737;
+    --ff: #f44336;
+}
+.dark {
+    --bg: #222222;
+    --bs: #000000;
+    --cl: #FAFAFA;
+    --cs: #cacaca;
+    --ff: #f44336;
+}
+html {
+    font-size: 16px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+    display: none;
+}
+h1, h2, h3 {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+h1 {font-size: 2.0rem;}
+h2 {font-size: 1.5rem;}
+h3 {font-size: 1.2rem;}
+label, input, textarea, select, hr, img, ul, ol {
+    display: block;
+    width: 100%;
+}
+input, textarea, select {
+    margin-bottom: 1rem;
+    border: solid 1px var(--cs);
+    padding: 0.5rem;
+}
+hr {
+    margin: 1rem 0;
+    border-bottom: solid 1px var(--cl);
+}
+img {
+    border: solid 1px var(--cl);
+}
+ul, ol {
+    margin-left: 1rem;
+}
+span, a, i, button, mark, .btn {
+    display: inline;
+    font-size: 1rem;
+}
+a, i, button, mark, input[type="file"]::file-selector-button, .btn {
+    cursor: pointer;
+}
+.m00 {
+    flex: 0 0 max-content;
+}
+button, 
+input[type="file"]::file-selector-button, 
+.btn {
+    padding: 0.5rem 1.5rem;
+    background-color: var(--bg);
+    color: var(--cl);
+    border: solid 1px var(--cl);
+    border-radius: 0.25rem;
+    transition: all 0.25s ease;
+}
+a:hover, i:hover, mark:hover {
+    color: var(--ff);
+}
+button:hover,
+input[type="file"]::file-selector-button:hover,
+.btn:hover {
+    background-color: var(--cl);
+    color: var(--bg);
+}
+input[type="file"]::file-selector-button {
+    margin-right: 1rem;
+}
+table, tbody, tr {
+    width: 100%;
+    border-collapse: collapse;
+    border: solid 1px var(--cl);
+}
+td {
+    padding: 0.5rem;
+    border: solid 1px var(--cl);
+    text-align: right;
+}
+td:first-child {
+    text-align: center;
+}
+body, header, nav, main, f-line, section {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+body {
+    min-height: 100vh;
+    background-color: var(--bg);
+    color: var(--cl);
+}
+body, main, section {
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 0;
+}
+header, nav {
+    flex: 0 0 max-content;
+    gap: 1rem;
+    flex-direction: row;
+}
+header {
+    top: 0;
+    padding: 1rem;
+    border-bottom: solid 1px var(--cs);
+}
+header > i, 
+header > span {
+    margin: auto 0;
+    font-size: 1.35rem;
+    line-height: 1.5rem;
+}
+header > i:hover {
+    color: var(--ff);
+}
+main {
+    padding: 1rem;
+}
+article {
+    flex: 1 1 auto;
+    border: solid 1px var(--cl);
+    padding: 1rem;
+}
+f-line {
+    flex-direction: row;
+    gap: 1rem;
+}
+f-line > * {
+    margin: auto 0;
+}
+f-sp {
+    flex: 1 1 auto;
+}
+.brd {
+    border: solid 1px var(--cl);
+}
+.hide {
+    display: none;
+}
+*:last-child {
+    margin-bottom: 0;
+}
+.black {
+    background-color: var(--cl);
+}
+.slim {
+    flex: 0 0 max-content;
+    width: max-content;
+    margin-bottom: 0;
+    border-radius: 0.25rem;
+}
+.tac {
+    text-align: center;
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/style.css">
+    <script src="./public/xlsx.full.min.js"></script>
+
+    <link rel="shortcut icon" href="./public/favicon.png" type="image/x-icon">
+    <title>manKas</title>
+</head>
+<body>
+    <header>
+        <i id="backBtn">☰</i>
+        <span>XLHelpers</span>
+        <f-sp></f-sp>
+        <f-sp></f-sp>
+        <i id="modeBtn">☀</i>
+    </header>
+
+    <main>
+        <section id="home">
+            <f-sp></f-sp>
+            <h3 class="tac">Pilih Menu</h3>
+            <br>
+            <f-line>
+                <f-sp></f-sp>
+                <button id="spdBtn">SPD</button>
+                <button id="rpdBtn">RPD</button>
+                <f-sp></f-sp>
+            </f-line>
+            <f-sp></f-sp>
+        </section>
+        <section id="SPDBox" class="hide">
+            <f-line>
+                <h3>Proses SPD</h3>
+                <f-sp></f-sp>
+                <button id="pilihSPD">1. Pilih File</button>
+                <button id="hasilSPD">2. Proses</button>
+            </f-line><hr>
+
+            <article id="excelSPDBox">
+                <h3>Format Excel SPD</h3>
+                <span>Pastikan</span>
+                <ul>
+                    <li>Satu satker per worksheet, satu worksheet per file</li>
+                    <li>Wajib header di baris pertama, header di baris lainnya akan difilter secara otomatis</li>
+                </ul>
+                <br>
+                <img src="./public/img/formatSPD.png" alt="">
+            </article>
+            
+            <article id="pilihSPDBox" class="hide">
+                <h3>Pilih File Excel SPD</h3>
+                <input type="file" id="uploadSPD" name="uploadSPD">
+            </article>
+
+            <article id="hasilSPDBox" class="hide">
+                <h3 id="hasilSPDttl">Hasil</h3>
+                <table id="">
+                    <thead>
+                        <tr>
+                            <td>Uraian</td>
+                            <td>Jumlah SPM</td>
+                            <td>Nilai SPM</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodySPD"></tbody>
+                </table>
+            </article>
+        </section>
+        <section id="RPDBox" class="hide">
+            <f-line>
+                <h3>Proses RPD</h3>
+                <f-sp></f-sp>
+                <button id="pilihRPD">1. Pilih File</button>
+                <select name="tahunRPD" id="tahunRPD" class="slim">
+                    <option value="" disabled selected>2. Pilih Tahun</option>
+                    <option value="t2021">2021</option>
+                    <option value="t2022">2022</option>
+                    <option value="t2023">2023</option>
+                  </select>
+                <button id="hasilRPD">3. Proses</button>
+            </f-line><hr>
+            <article id="excelRPDBox">
+                <h3>Format Excel RPD</h3>
+                <span>Pastikan</span>
+                <ul>
+                    <li>Satu satker per worksheet, satu worksheet per file</li>
+                    <li>Wajib header di baris pertama, sesuaikan dengan contoh</li>
+                </ul>
+                <br>
+                <img src="./public/img/formatRPD.png" alt="">
+            </article>
+            
+            <article id="pilihRPDBox" class="hide">
+                <h3>Pilih File Excel RPD</h3>
+                <input type="file" id="uploadRPD" name="uploadRPD">
+            </article>
+
+            <article id="hasilRPDBox" class="hide">
+                <h3 id="hasilRPDttl">Hasil</h3>
+                <table id="">
+                    <thead>
+                        <tr>
+                            <td colspan="2">Uraian</td>
+                            <td>Rencana</td>
+                            <td>Realisasi</td>
+                            <td>Deviasi</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyRPD"></tbody>
+                </table>
+            </article>
+        </section>
+    </main>
+
+
+
+    <script src="./public/function.js"></script>
+</body>
+</html>
