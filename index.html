@@ -31,6 +31,7 @@
                 <button id="spdBtn">SPD</button>
                 <button id="rpdBtn">RPD</button>
                 <button id="sp2Btn">SP2D</button>
+                <button id="gupBtn">GUP</button>
                 <f-sp></f-sp>
             </f-line>
             <f-sp></f-sp>
@@ -73,6 +74,7 @@
                 </table>
             </article>
         </section>
+
         <section id="RPDBox" class="hide">
             <f-line>
                 <h3>Proses RPD</h3>
@@ -120,7 +122,7 @@
 
         <section id="SP2Box" class="hide">
             <f-line>
-                <h3>Proses RPD</h3>
+                <h3>Proses SP2D</h3>
                 <f-sp></f-sp>
                 <button id="pilihSP2">1. Pilih File</button>
                 <button id="hasilSP2">3. Proses</button>
@@ -137,7 +139,7 @@
             </article>
             
             <article id="pilihSP2Box" class="hide">
-                <h3>Pilih File Excel RPD</h3>
+                <h3>Pilih File Excel SP2D</h3>
                 <input type="file" id="uploadSP2" name="uploadSP2">
             </article>
 
@@ -154,6 +156,48 @@
                     <tbody id="tbodySP2"></tbody>
                 </table>
                 <div id="hasilSP2err">
+                    <hr>
+                    <h3>Error Log</h3>
+                </div>
+            </article>
+        </section>
+
+        <section id="GUPBox" class="hide">
+            <f-line>
+                <h3>Proses GUP</h3>
+                <f-sp></f-sp>
+                <button id="pilihGUP">1. Pilih File</button>
+                <button id="hasilGUP">3. Proses</button>
+            </f-line><hr>
+            <article id="excelGUPBox">
+                <h3>Format Excel GUP</h3>
+                <span>Format sama dengan SP2D</span>
+                <ul>
+                    <li>Satu satker per worksheet, satu worksheet per file</li>
+                    <li>Wajib header di baris pertama, sesuaikan dengan contoh</li>
+                </ul>
+                <br>
+                <img src="./public/img/formatSP2D.png" alt="">
+            </article>
+            
+            <article id="pilihGUPBox" class="hide">
+                <h3>Pilih File Excel GUP</h3>
+                <input type="file" id="uploadGUP" name="uploadGUP">
+            </article>
+
+            <article id="hasilGUPBox" class="hide">
+                <h3 id="hasilGUPttl"></h3>
+                <table id="">
+                    <thead>
+                        <tr>
+                            <td colspan="2">Uraian</td>
+                            <td>Jumlah SPM</td>
+                            <td>Nominal SPM</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyGUP"></tbody>
+                </table>
+                <div id="hasilGUPerr">
                     <hr>
                     <h3>Error Log</h3>
                 </div>
