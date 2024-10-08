@@ -6,6 +6,15 @@ const ca = (e,f) => document.getElementById(e).classList.add(f);
 const pages = document.querySelectorAll('section');
 const spdBox = ['excelSPDBox', 'pilihSPDBox', 'hasilSPDBox'];
 const rpdBox = ['excelRPDBox', 'pilihRPDBox', 'hasilRPDBox'];
+const sp2Box = ['excelSP2Box', 'pilihSP2Box', 'hasilSP2Box'];
+const nonLS = ['UP', 'GUP', 'GUP KKP', 'TUP', 'GTUP NIHIL', 'GUP VALAS', 'GUP NIHIL', 'PENGESAHAN BLU', 'GUP VALAS NIHIL', 'PENGESAHAN HIBAH'];
+
+const jb51 = ['SPM GAJI 13', 'GAJI INDUK', 'GAJI LAINNYA', 'GAJI SUSULAN', 'KEKURANGAN GAJI',
+'TUNJANGAN KINERJA BULANAN', 'TUNJANGAN KINERJA SUSULAN', 'KEKURANGAN TUNJANGAN KINERJA',
+'SPM THR GAJI PNS/TNI/POLRI', 'SPM THR TUNKIN', 'SPM THR PEJABAT NEGARA', 
+'SPM GAJI 13 PNS/TNI/POLRI', 'SPM GAJI 13 PEJABAT NEGARA', 'SPM GAJI 13 TUNKIN', 'SPM THR Gaji PNS/TNI/Polri', 'GAJI PPPK INDUK', 'GAJI SUSULAN PPPK', 'GAJI LAINNYA PPPK', 'KEKURANGAN GAJI PPPK', 'SPM THR PPPK', 'SPM GAJI 13 PPPK'];
+const jb52 = ['PENGHASILAN PPNPN SUSULAN', 'PENGHASILAN PPNPN INDUK', 'SPM THR PPNPN', 'SPM GAJI 13 PPNPN']
+
 const click = (id, handler) => $(id).addEventListener('click', handler);
 async function xl2qt(od) {
     const ep = (od - 25569) * 86400 * 1000; // Convert to milliseconds
@@ -14,6 +23,29 @@ async function xl2qt(od) {
     } else if (mn >= 4 && mn <= 6) {return 'Q2';
     } else if (mn >= 7 && mn <= 9) {return 'Q3';
     } else {return 'Q4';}
+};
+async function dt2qt(od) {
+    let mn = +(od.slice(3,5));
+    if (mn >= 1 && mn <= 3) {return 'Q1';
+    } else if (mn >= 4 && mn <= 6) {return 'Q2';
+    } else if (mn >= 7 && mn <= 9) {return 'Q3';
+    } else if (mn >= 10 && mn <= 12){return 'Q4';}
+};
+async function jb2ak(jb, i, ur){
+    let jb2 = jb.toLowerCase()
+    if(jb2 === 'pegawai'){return '51'}
+    else if(jb2 === 'barang'){return '52'}
+    else if(jb2 === 'modal'){return '53'}
+    else{
+        console.log('baris ke-'+(i+1)+' tidak sesuai format: '+ jb + '\n'+ ur);
+        let ndiv = document.createElement('div');
+        ndiv.innerHTML = `
+        data baris ke-+${i+1}+' tidak sesuai format uraian baku: <strong>'+ ${jb} +'</strong>
+        <br><em>'+ ${ur}+'</em><br><br>`;
+
+        $('hasilSP2err').appendChild(ndiv);
+        return ['error', jb]
+    }
 };
 async function xl2ISO(dt) {
     const ep = (dt - 25569) * 86400 * 1000;
@@ -41,6 +73,156 @@ click('modeBtn', () => {
 });
 click('spdBtn', () => {swPages('SPDBox')});
 click('rpdBtn', () => {swPages('RPDBox')});
+click('spdBtn', () => {swPages('SPDBox')});
+click('sp2Btn', () => {swPages('SP2Box')});
+
+
+/* Proses SP2D */
+click('pilihSP2', () => {sw(sp2Box,'pilihSP2Box')});
+click('hasilSP2', () => {
+    sw(spdBox,'hasilSP2Box');
+    uploadFile('uploadSP2','sp2');
+});
+async function sp2Looper(data){
+    console.log(data); let cnt = 0;
+
+    const kode = data[0]["Nomor Invoice"].split('/')[1];
+    const Q151 = []; const Q251 = []; const Q351 = []; const Q451 = [];
+    const Q152 = []; const Q252 = []; const Q352 = []; const Q452 = [];
+    const Q153 = []; const Q253 = []; const Q353 = []; const Q453 = [];
+
+    for (let i = 0; i < data.length; i++) {
+        if(!nonLS.includes(data[i]['Jenis SPM'])){
+            let dt = await dt2qt(data[i]["Tanggal SP2D"]);
+            let jn = data[i]['Jenis SPM'].toUpperCase();
+            let ub0 = data[i].Deskripsi;
+            let ub1 = ub0.replace(/\s\s+/g, ' ');
+            let ub2 = ub1.split(' ')[2];
+            let ubc = ub2.replace(/[^a-zA-Z]/g, '');
+            if(jb51.includes(jn)){
+                ak = '51';
+            } else if(jb52.includes(jn)){
+                ak = '52';
+            } else {
+                ak = await jb2ak(ubc, i, ub0);
+            };
+            let vl = data[i]["Nilai SP2D Ekuivalen"];
+            cnt+=1;
+            switch (dt+ak) {
+                case ('Q151') : Q151.push(vl); break;
+                case ('Q152') : Q152.push(vl); break;
+                case ('Q153') : Q153.push(vl); break;
+    
+                case ('Q251') : Q251.push(vl); break;
+                case ('Q252') : Q252.push(vl); break;
+                case ('Q253') : Q253.push(vl); break;
+    
+                case ('Q351') : Q351.push(vl); break;
+                case ('Q352') : Q352.push(vl); break;
+                case ('Q353') : Q353.push(vl); break;
+    
+                case ('Q451') : Q451.push(vl); break;
+                case ('Q452') : Q452.push(vl); break;
+                case ('Q453') : Q453.push(vl); break;
+            };
+        };
+    };
+    let tQ151 = Q151.reduce((acc, curr) => acc + curr, 0);
+    let tQ152 = Q152.reduce((acc, curr) => acc + curr, 0);
+    let tQ153 = Q153.reduce((acc, curr) => acc + curr, 0);
+
+    let tQ251 = Q251.reduce((acc, curr) => acc + curr, 0);
+    let tQ252 = Q252.reduce((acc, curr) => acc + curr, 0);
+    let tQ253 = Q253.reduce((acc, curr) => acc + curr, 0);
+
+    let tQ351 = Q351.reduce((acc, curr) => acc + curr, 0);
+    let tQ352 = Q352.reduce((acc, curr) => acc + curr, 0);
+    let tQ353 = Q353.reduce((acc, curr) => acc + curr, 0);
+
+    let tQ451 = Q451.reduce((acc, curr) => acc + curr, 0);
+    let tQ452 = Q452.reduce((acc, curr) => acc + curr, 0);
+    let tQ453 = Q453.reduce((acc, curr) => acc + curr, 0);
+   
+    fd('hasilSP2ttl', 'Hasil '+kode+' ['+cnt+' data LS]');
+    $('tbodySP2').innerHTML = `
+        <tr>
+            <td>Q1</td>
+            <td>51</td>
+            <td>${Q151.length}</td>
+            <td>${tQ151}</td>
+        </tr>
+        <tr>
+            <td>Q1</td>
+            <td>52</td>
+            <td>${Q152.length}</td>
+            <td>${tQ152}</td>
+        </tr>
+        <tr>
+            <td>Q1</td>
+            <td>53</td>
+            <td>${Q153.length}</td>
+            <td>${tQ153}</td>
+        </tr>
+
+        <tr>
+            <td>Q2</td>
+            <td>51</td>
+            <td>${Q251.length}</td>
+            <td>${tQ251}</td>
+        </tr>
+        <tr>
+            <td>Q2</td>
+            <td>52</td>
+            <td>${Q252.length}</td>
+            <td>${tQ252}</td>
+        </tr>
+        <tr>
+            <td>Q2</td>
+            <td>53</td>
+            <td>${Q253.length}</td>
+            <td>${tQ253}</td>
+        </tr>
+
+        <tr>
+            <td>Q3</td>
+            <td>51</td>
+            <td>${Q351.length}</td>
+            <td>${tQ351}</td>
+        </tr>
+        <tr>
+            <td>Q3</td>
+            <td>52</td>
+            <td>${Q352.length}</td>
+            <td>${tQ352}</td>
+        </tr>
+        <tr>
+            <td>Q3</td>
+            <td>53</td>
+            <td>${Q353.length}</td>
+            <td>${tQ353}</td>
+        </tr>
+
+        <tr>
+            <td>Q4</td>
+            <td>51</td>
+            <td>${Q451.length}</td>
+            <td>${tQ451}</td>
+        </tr>
+        <tr>
+            <td>Q4</td>
+            <td>52</td>
+            <td>${Q452.length}</td>
+            <td>${tQ452}</td>
+        </tr>
+        <tr>
+            <td>Q4</td>
+            <td>53</td>
+            <td>${Q453.length}</td>
+            <td>${tQ453}</td>
+        </tr>
+    `;
+
+};
 
 /* Proses RPD */
 click('pilihRPD', () => {sw(rpdBox,'pilihRPDBox')});
@@ -352,6 +534,7 @@ function xl2Json(file, to) {
         console.log(result);
         if(to === 'spd'){spdLooper(result.data)}
         if(to === 'rpd'){rpdLooper(result.data)}
+        if(to === 'sp2'){sp2Looper(result.data)}
     };
     reader.readAsArrayBuffer(file);
 }
