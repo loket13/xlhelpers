@@ -33,6 +33,12 @@ html {
 html::-webkit-scrollbar {
     display: none;
 }
+em {
+    font-style: italic;
+}
+strong {
+    font-weight: 700;
+}
 h1, h2, h3 {
     display: block;
     font-weight: 700;
@@ -69,6 +75,11 @@ a, i, button, mark, input[type="file"]::file-selector-button, .btn {
 }
 .m00 {
     flex: 0 0 max-content;
+}
+mark {
+    padding: 0.2rem 1rem;
+    background-color: var(--cs);
+    color: var(--bg);
 }
 button, 
 input[type="file"]::file-selector-button, 
@@ -177,4 +188,11 @@ f-sp {
 }
 .tac {
     text-align: center;
+}
+#hasilSP2err > div {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: solid 1px var(--cs);
 }
