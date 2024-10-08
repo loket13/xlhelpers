@@ -10,12 +10,12 @@
     <script src="./public/xlsx.full.min.js"></script>
 
     <link rel="shortcut icon" href="./public/favicon.png" type="image/x-icon">
-    <title>manKas</title>
+    <title>manKas XLHelpers</title>
 </head>
 <body>
     <header>
         <i id="backBtn">☰</i>
-        <span>XLHelpers</span>
+        <span>XLHelpers - update 20241008</span>
         <f-sp></f-sp>
         <f-sp></f-sp>
         <i id="modeBtn">☀</i>
@@ -30,6 +30,7 @@
                 <f-sp></f-sp>
                 <button id="spdBtn">SPD</button>
                 <button id="rpdBtn">RPD</button>
+                <button id="sp2Btn">SP2D</button>
                 <f-sp></f-sp>
             </f-line>
             <f-sp></f-sp>
@@ -114,6 +115,48 @@
                     </thead>
                     <tbody id="tbodyRPD"></tbody>
                 </table>
+            </article>
+        </section>
+
+        <section id="SP2Box" class="hide">
+            <f-line>
+                <h3>Proses RPD</h3>
+                <f-sp></f-sp>
+                <button id="pilihSP2">1. Pilih File</button>
+                <button id="hasilSP2">3. Proses</button>
+            </f-line><hr>
+            <article id="excelSP2Box">
+                <h3>Format Excel SP2D</h3>
+                <span>Pastikan</span>
+                <ul>
+                    <li>Satu satker per worksheet, satu worksheet per file</li>
+                    <li>Wajib header di baris pertama, sesuaikan dengan contoh</li>
+                </ul>
+                <br>
+                <img src="./public/img/formatSP2D.png" alt="">
+            </article>
+            
+            <article id="pilihSP2Box" class="hide">
+                <h3>Pilih File Excel RPD</h3>
+                <input type="file" id="uploadSP2" name="uploadSP2">
+            </article>
+
+            <article id="hasilSP2Box" class="hide">
+                <h3 id="hasilSP2ttl"></h3>
+                <table id="">
+                    <thead>
+                        <tr>
+                            <td colspan="2">Uraian</td>
+                            <td>Jumlah SPM</td>
+                            <td>Nominal SPM</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodySP2"></tbody>
+                </table>
+                <div id="hasilSP2err">
+                    <hr>
+                    <h3>Error Log</h3>
+                </div>
             </article>
         </section>
     </main>
